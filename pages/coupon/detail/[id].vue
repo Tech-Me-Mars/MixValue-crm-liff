@@ -1,19 +1,18 @@
 <template>
   <div class="bg-cover min-h-screen bg-white">
-    <!-- Header -->
-    <NuxtLink :to="localPath('/main_menu')">
-      <HeaderMenu class="mb-5" style="background-color: rgba(36, 158, 5, 0.904)">
+    <NuxtLink :to="localPath('/coupon')">
+      <HeaderMenu class="" style="background-color: rgba(36, 158, 5, 0.904)">
         <div class="flex justify-between items-center w-full">
-          <p class="text-2xl text-white mx-auto">{{ $t("คูปอง") }}</p>
+          <p class="text-2xl text-white mx-auto">{{ $t("รายละเอียดคูปอง") }}</p>
           <span class="mdi mdi-chevron-left text-white self-end" style="font-size: 25px"></span>
         </div>
       </HeaderMenu>
     </NuxtLink>
-    <!--End Header -->
-
-    <!-- แสดงคูปอง -->
-    <PageCouponList_Coupon />
-    <!-- จบแสดงคูปอง -->
+    <PageCouponDetailImage />
+    <section class="px-10">
+      <PageCouponDetailCoupondetail />
+      <PageCouponDetailBarcodescan />
+    </section>
   </div>
 </template>
 

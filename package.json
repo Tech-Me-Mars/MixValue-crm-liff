@@ -20,6 +20,7 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@line/liff": "^2.23.1",
     "@mdi/font": "^7.3.67",
     "@vee-validate/zod": "^4.12.3",
     "animate.css": "^4.1.1",
