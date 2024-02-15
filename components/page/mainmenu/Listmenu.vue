@@ -114,14 +114,19 @@ const menuData = ref([
                 </div>
               </template>
             </Dropdown> -->
-            <span class="p-buttonset">
+            <!-- <span class="p-buttonset">
               <TmmButton @click="changeLanguage('th-TH')" severity="danger"  class="h-auto" :outlined="language!='th-TH'" >
                 <img src="/image/flag/flag-thailand.png" class="w-[1.5rem]" />
               </TmmButton>
               <TmmButton @click="changeLanguage('en-US')" severity="danger"  class="h-auto" :outlined="language!='en-US'">
                 <img src="/image/flag/flag-us.png" class="w-[1.5rem]" />
               </TmmButton>
-            </span>
+            </span> -->
+            <!-- <div class="flex gap-2">
+              <span  @click="changeLanguage('th-TH')" :class="['fi', 'fi-th', { 'grayscale': language !== 'th-TH' }]"></span>
+              <span @click="changeLanguage('en-US')" :class="['fi', 'fi-gb', { 'grayscale': language !== 'en-US' }]"></span>
+            </div> -->
+            <Changelang />
           </div>
         </div>
       </div>

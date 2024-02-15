@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center">
-    <Toast position="top-right" group="bc" class="w-full max-w-md">
+    <Toast position="top-center" group="bc" class="w-full max-w-md">
       <template #message="slotProps">
         <div class="flex flex-col items-start flex-1">
           <h4 class="font-medium text-lg text-center flex justify-center text-gray-900">{{ slotProps.message.summary }}

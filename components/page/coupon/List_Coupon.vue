@@ -1,5 +1,7 @@
 <script setup>
+import * as dataApi from "./api/data.js";
 import { useI18n } from "vue-i18n";
+import { formatDate, customDateFormat, formatCurrency, formatNumber, roundToTwoDecimalPlaces } from '@/helpers/utility';
 const { t } = useI18n();
 const localPath = useLocalePath();
 
@@ -22,62 +24,29 @@ const buttonCategoryCoupon = ref([
 // ข้อมูลคูปองส่วนลดเงินสด
 const couponDiscountMoneyList = ref([]);
 // ข้อมูลคูปองส่วนลดสินค้า
-const couponDiscountPriceList = ref([
-  {
-    name: "เอเวอร์รินน้ำแร่ 600 ml. ราคา 60 บาท",
-    date: "24 วัน(29 ก.พ 2567 เวลา 23:59)",
-    image: "/image/coupon/coupon-cj-removebg-preview.png",
-    id: 1,
-  },
-  {
-    name: "เอเวอร์รินน้ำแร่ 600 ml. ราคา 60 บาท",
-    date: "24 วัน(29 ก.พ 2567 เวลา 23:59)",
-    image: "/image/coupon/coupon-cj-removebg-preview.png",
-    id: 1,
-  },
-  {
-    name: "เอเวอร์รินน้ำแร่ 600 ml. ราคา 60 บาท",
-    date: "24 วัน(29 ก.พ 2567 เวลา 23:59)",
-    image: "/image/coupon/coupon-cj-removebg-preview.png",
-    id: 1,
-  },
-  {
-    name: "เอเวอร์รินน้ำแร่ 600 ml. ราคา 60 บาท",
-    date: "24 วัน(29 ก.พ 2567 เวลา 23:59)",
-    image: "/image/coupon/coupon-cj-removebg-preview.png",
-    id: 1,
-  },
-  {
-    name: "เอเวอร์รินน้ำแร่ 600 ml. ราคา 60 บาท",
-    date: "24 วัน(29 ก.พ 2567 เวลา 23:59)",
-    image: "/image/coupon/coupon-cj-removebg-preview.png",
-    id: 1,
-  },
-  {
-    name: "เอเวอร์รินน้ำแร่ 600 ml. ราคา 60 บาท",
-    date: "24 วัน(29 ก.พ 2567 เวลา 23:59)",
-    image: "/image/coupon/coupon-cj-removebg-preview.png",
-    id: 1,
-  },
-  {
-    name: "เอเวอร์รินน้ำแร่ 600 ml. ราคา 60 บาท",
-    date: "24 วัน(29 ก.พ 2567 เวลา 23:59)",
-    image: "/image/coupon/coupon-cj-removebg-preview.png",
-    id: 1,
-  },
-  {
-    name: "เอเวอร์รินน้ำแร่ 600 ml. ราคา 60 บาท",
-    date: "24 วัน(29 ก.พ 2567 เวลา 23:59)",
-    image: "/image/coupon/coupon-cj-removebg-preview.png",
-    id: 1,
-  },
-  {
-    name: "เอเวอร์รินน้ำแร่ 600 ml. ราคา 60 บาท",
-    date: "24 วัน(29 ก.พ 2567 เวลา 23:59)",
-    image: "/image/coupon/coupon-cj-removebg-preview.png",
-    id: 1,
-  },
+const couponDiscountProducts = ref([
+  // {
+  //   name: "เอเวอร์รินน้ำแร่ 600 ml. ราคา 60 บาท",
+  //   date: "24 วัน(29 ก.พ 2567 เวลา 23:59)",
+  //   image: "/image/coupon/coupon-cj-removebg-preview.png",
+  //   id: 1,
+  // },
+
 ]);
+
+const loadCoupon = async () =>{
+  try{
+    const res = await dataApi.getCoupon()
+    couponDiscountProducts.value = res.data.data.coupon_for_product
+    couponDiscountMoneyList.value = res.data.data.coupon_for_discount_cash
+  }catch (error){
+        console.error(error)
+    }
+}
+onMounted(()=>{
+  loadCoupon()
+})
+
 </script>
 
 <template>
@@ -99,7 +68,7 @@ const couponDiscountPriceList = ref([
   <!-- Tab คูปองลดสินค้า -->
   <div v-if="activeStepBtn == 1">
     <DataView
-      :value="couponDiscountPriceList"
+      :value="couponDiscountProducts"
       class="p-4"
       :pt="{
         content: { class: 'bg-transparent' },
@@ -122,15 +91,15 @@ const couponDiscountPriceList = ref([
           >
           <NuxtLink :to="localPath(`/coupon/detail/${item.id}`)" >
             <div class="flex justify-between font-bold gap-2 text-lg py-2">
-              <div class="w-[8rem]">
+              <!-- <div class="w-[8rem]">
                 <img :src="item.image" class="w-full h-full bg-cover" />
-              </div>
+              </div> -->
               <div class="">
                 <p class="text-green-500 line-clamp-1 text-md">
                   {{ item.name }}
                 </p>
                 <TmmTypographyLabelForm
-                  :label="$t('หมดอายุใน') + item.date"
+                  :label="`${$t('หมดอายุใน')} ${formatDate(item.end_date)}`"
                   className="mb-3 text-xs text-green-500 line-clamp-1"
                 />
               </div>
@@ -170,16 +139,16 @@ const couponDiscountPriceList = ref([
             <div
               class="flex justify-between font-bold gap-2 text-lg py-2 border-b-2 border-lime-600"
             >
-              <div class="w-[8rem]">
+              <!-- <div class="w-[8rem]">
                 <img :src="item.image" class="w-full h-full bg-cover" />
-              </div>
+              </div> -->
               <div class="">
                 <p class="text-green-500 line-clamp-1 text-md">
                   {{ item.name }}
                 </p>
                 <TmmTypographyLabelForm
-                  :label="item.date"
-                  className="mb-3 text-xs text-warp"
+                  :label="`${$t('หมดอายุใน')} ${formatDate(item.end_date)}`"
+                  className="mb-3 text-xs text-green-500 line-clamp-1"
                 />
               </div>
             </div>

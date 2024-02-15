@@ -1,7 +1,4 @@
 <template>
-    <!-- <Button :label="label" :loading="loading" :size="size" :severity="severity" >
-        <i v-if="icon" :class="`${icon} mr-1`"></i><span v-if="icon">{{ label }}</span>
-    </Button> -->
     <Button :label="label" :icon="icon" :type="type" :severity="severity" :size="size" :class="className" :rounded="rounded" :loading="loading" />
 </template>
 

@@ -1,4 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
 export default defineNuxtConfig({
   devtools: { enabled: false },
   ssr:false,
@@ -13,14 +14,16 @@ export default defineNuxtConfig({
         iso: "th-TH",
         name: "ไทย",
         file: "th-TH.json",
-        flag: '/image/flag/flag-thailand.png'
+        flag: '/image/flag/flag-thailand.png',
+        flagIcon:"fi-th"
       },
       {
         code: "en-US",
         iso: "en-US",
         name: "English(US)",
         file: "en-US.json",
-        flag: '/image/flag/flag-us.png'
+        flag: '/image/flag/flag-us.png',
+        flagIcon:"fi-gb"
       },
 
     ],
@@ -33,12 +36,13 @@ export default defineNuxtConfig({
     defineModel: true,
     propsDestructure: true
   },
-  modules: ["@nuxtjs/tailwindcss", "nuxt-primevue",'@nuxtjs/i18n','nuxt-swiper'],
+  modules: ['nuxt-swiper',"@nuxtjs/tailwindcss", "nuxt-primevue",'@nuxtjs/i18n',],
 
   primevue: {
     cssLayerOrder: "tailwind-base, primevue, tailwind-utilities",
     components: {
       include: "*",
+      exclude: ['editor']
     },
     directives: {
       include: "*",
@@ -91,6 +95,7 @@ export default defineNuxtConfig({
     "@/assets/css/fontgobal.css",
     "@/assets/css/style.css",
     "@/themes/material/material-light/standard/indigo/theme.scss",
+    "flag-icons/css/flag-icons.min.css"
     // '@/themes/tailwind/tailwind-light/theme.scss',
     // '@/themes/viva/viva-light/theme.scss'
     // '@/themes/fluent/fluent-light/theme.scss'
@@ -102,6 +107,8 @@ export default defineNuxtConfig({
   ],
   runtimeConfig: {
     public: {
+      LIFFID: process.env.LIFFID,
+      LIFFURL: process.env.LIFFURL,
       // ! DEV UAT
       URL_API: "https://api-uat.mix-station.com",
 

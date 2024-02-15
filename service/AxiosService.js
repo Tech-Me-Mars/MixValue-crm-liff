@@ -6,15 +6,22 @@ const getToken = function () {
   return localStorage.getItem("token");
 };
 
+const getLang = () =>{
+  const Lang = localStorage.getItem("defaultlangguage") === "en-US" ? "en" : "th";
+  return Lang;
+} 
 export async function request(method, url, data, auth = true) {
-  const headers = {};
+
+  const headers = {
+    // en or th
+    "Accept-Language": getLang(), // Set Accept-Language header to 'th' (or adjust as needed)
+  };
   if (auth) {
     headers["Authorization"] = `Bearer ${getToken()}`;
   }
-  const isloadingAxi = useState('isloadingAxi', () => true)
+  const isloadingAxi = useState("isloadingAxi", () => true);
   isloadingAxi.value = true;
   try {
-    
     const response = await axios({
       method,
       url,
@@ -22,9 +29,9 @@ export async function request(method, url, data, auth = true) {
       headers,
     });
     if (response) {
-       isloadingAxi.value = false;
+      isloadingAxi.value = false;
     }
-    
+
     return response;
   } catch (error) {
     isloadingAxi.value = false;
@@ -33,6 +40,7 @@ export async function request(method, url, data, auth = true) {
 
     // [[ กรณีกรอกรหัสผิด return 401]]
     if (error.response.status === 401) {
+      // หาก401 เตะไปหน้า register
       console.log("Login รหัสผ่านผิด | Token ไม่ถูกต้อง | ไม่มี Token");
       localStorage.removeItem("token");
       await navigateTo("/auth/login");

@@ -19,7 +19,8 @@ export const formatDate = (value) => {
     // คุณอาจต้องแปลง value เป็น Date object ก่อน
     value = new Date(value);
   }
-  return value.toLocaleDateString("th-TH", {
+  const { locales, locale, setLocale } = useI18n();
+  return value.toLocaleDateString(locale.value||"th-Th", {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
@@ -66,7 +67,6 @@ export const validatePhoneNumber = (event) => {
     // supplier_phone.value = supplier_phone.value;
   }
 };
-
 
 export const roundToTwoDecimalPlaces =(number)=> {
     // ใช้ parseFloat เพื่อแปลงค่าเป็นทศนิยม (หากยังไม่ได้เปลี่ยน)

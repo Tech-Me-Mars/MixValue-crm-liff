@@ -27,6 +27,13 @@ const firstBox = ref(true)
 const swapBox = () => {
     firstBox.value = !firstBox.value
 }
+
+const props = defineProps({
+  cardMemberData: {
+    type: Object, // ระบุชนิดของ prop
+    required: true // ระบุว่า prop นี้จำเป็นต้องมี
+  }
+});
 </script>
 
 <template>
@@ -61,18 +68,18 @@ const swapBox = () => {
                             class="" size="small" :outlined="!item.active" @click="activeBtnCard(item.id)" />
                     </span>
                 </div>
-                <div class="flex justify-center items-center ">
-                    <img src="/barcode.png" class="object-contain pt-4" style="width: 9rem;" alt="barcode"
+                <div class="flex justify-center items-center h-[5rem]">
+                    <img :src="`data:image/png;base64,${cardMemberData.barcode}`" class="object-contain pt-4" style="width: 9rem;" alt="barcode"
                         v-if="activeStepCard == 1">
-                    <img src="/qr-code.png" class="object-contain pt-4" style="width: 5rem;" alt="barcode"
+                    <img :src="`data:image/png;base64,${cardMemberData.qrcode}`" class="object-contain pt-4" style="width: 5rem;" alt="qrcode"
                         v-if="activeStepCard == 2">
-                    <span class="pt-8 text-2xl" v-if="activeStepCard == 3">V0754193</span>
+                    <span class="pt-8 text-2xl font-bold" v-if="activeStepCard == 3">{{ cardMemberData.card_id }}</span>
                 </div>
             </div>
-            <p
+            <!-- <p
                 class="italic text-gray-700 font-light text-xs text-center pt-1 absolute bottom-7 left-1/2 w-full transform -translate-x-1/2 z-10">
                 {{ $t('เชื่อมต่อไลน์เมื่อวันที่') }} 5 ก.พ. 2567
-            </p>
+            </p> -->
             <TmmButtonScan severity="danger" rounded
                 className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 z-10 " @click="swapBox" />
         </div>
