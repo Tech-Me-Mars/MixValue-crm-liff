@@ -27,7 +27,7 @@
         <!-- พ้อยคงเหลือ -->
         <PageIndexPoint_remaining :cardMemberData="resCardMember" />
         <!-- จบพ้อยคงเหลือ -->
-
+        
     </div>
 </template>
 <script setup>

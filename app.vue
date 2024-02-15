@@ -10,6 +10,8 @@
 import liff from "@line/liff";
 import { initFlowbite } from "flowbite";
 import { jwtDecode } from "jwt-decode";
+
+import * as dataApi from "@/service/CheckRegisterService";
 const { locales, locale, setLocale } = useI18n();
 const liftId = useRuntimeConfig().public.LIFFID;
 const liftUrl = useRuntimeConfig().public.LIFFURL;
@@ -72,12 +74,28 @@ const loadProfile = async () => {
     await decodeTokenDetail(token)
     localStorage.setItem("profile", JSON.stringify(profile));
     localStorage.setItem("token", token);
+
+    // สร้างฟังชั่นCheck-registerทุกครั้งที่initใหม่ หากfalseวิ่งไปRegister(ยังไม่เป็นสมาชิก) true=>วิ่งไปหน้าHome
+
   }
   catch (error) {
     isLineConnected.value = true;
     console.error(error)
   }
 
+}
+
+const checkRegister = async () => {
+
+  try {
+    const res = await dataApi.checkRegister();
+    console.log('res register', res.status)
+  }
+  catch (error) {
+    // หาก401 จะไปเช็คที่ไฟล์AxiosService เอง
+
+    console.error(error)
+  }
 }
 const decodeTokenDetail = async (token) => {
   try {
@@ -151,9 +169,10 @@ const decodeTokenDetail = async (token) => {
 // });
 
 
-onMounted(() => {
+onMounted(async () => {
   initFlowbite();
-  connectLine();
+  await connectLine();
+  checkRegister();
 });
 </script>
 <style>

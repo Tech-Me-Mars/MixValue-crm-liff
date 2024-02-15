@@ -1,4 +1,5 @@
 import axios from "axios";
+import liff from "@line/liff";
 // const config = useRuntimeConfig();
 axios.defaults.baseURL = "https://api-uat.mix-station.com";
 
@@ -38,14 +39,15 @@ export async function request(method, url, data, auth = true) {
     // Handle other errors or exceptions, if necessary
     console.error("request catch (error) ", error);
 
-    // [[ กรณีกรอกรหัสผิด return 401]]
+    // [[ กรณีกรอกรหัสผิด return 401]] 
     if (error.response.status === 401) {
-      // หาก401 เตะไปหน้า register
+      if (liff.isLoggedIn()) {
+        liff.logout();
+      }
+      // หาก401 (token หมดเวลา) ให้Logout line แล้วLogin=>init ใหม่
       console.log("Login รหัสผ่านผิด | Token ไม่ถูกต้อง | ไม่มี Token");
-      localStorage.removeItem("token");
-      await navigateTo("/auth/login");
-    } else if (error.response.status === 403) {
-      await navigateTo("/Unauthorized");
+      // localStorage.removeItem("token");
+      // await navigateTo("/auth/login");
     } else if (error.response.status === 422) {
       console.log("ติด validate");
     } else if (error.response.status === 500) {
