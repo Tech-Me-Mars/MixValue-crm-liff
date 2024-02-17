@@ -14,9 +14,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
       if (!isLoginLine) {
         alert(isLoginLine);
         return liff.login({
-          redirectUri: window.location.replace(
-            liftUrl
-          ),
+          redirectUri: window.location.replace(liftUrl),
         });
       }
     }

@@ -4,9 +4,9 @@ const { t } = useI18n();
 const localPath = useLocalePath();
 
 // ฟังชั่นในการเปลี่ยนภาษา
-const changeLanguage = (param)=>{
+const changeLanguage = (param) => {
   language.value = param;
-}
+};
 const { locales, locale, setLocale } = useI18n();
 // เมื่อตัวแปร language เปลี่ยน จะทำกา set ภาษา
 const language = computed({
@@ -33,7 +33,7 @@ const menuData = ref([
   {
     name: t("ใบเสร็จ"),
     icon: "mdi mdi-receipt-text",
-    to: "/",
+    to: "/receipt",
     togglelang: false,
   },
   {
@@ -67,9 +67,13 @@ const menuData = ref([
 </script>
 
 <template>
-  <DataView :value="menuData" class="p-4" :pt="{
-    content: { class: 'bg-transparent' },
-  }">
+  <DataView
+    :value="menuData"
+    class="p-4"
+    :pt="{
+      content: { class: 'bg-transparent' },
+    }"
+  >
     <template #empty>
       <div class="flex flex-col justify-center items-center">
         <p class="mdi mdi-receipt-text-remove-outline mb-1 text-green-600"></p>
@@ -78,23 +82,41 @@ const menuData = ref([
     </template>
     <template #list="slotProps">
       <div class="flex flex-wrap">
-        <div v-for="(item, index) in slotProps.items" :key="index" class="w-full">
+        <div
+          v-for="(item, index) in slotProps.items"
+          :key="index"
+          class="w-full"
+        >
           <NuxtLink v-if="!item.togglelang" :to="localPath(`${item.to}`)">
-            <div class="flex justify-between font-bold text-lg py-4 border-b-2 border-dark cursor-pointer">
+            <div
+              class="flex justify-between font-bold text-lg py-4 border-b-2 border-dark cursor-pointer"
+            >
               <div>
                 <i :class="`${item.icon} mr-3`" style="font-size: 23px"></i>
                 <span>{{ item.name }}</span>
-                <TmmTypographyLabelForm :label="item.date" className="mb-3 text-sm" />
+                <TmmTypographyLabelForm
+                  :label="item.date"
+                  className="mb-3 text-sm"
+                />
               </div>
-              <span class="mdi mdi-menu-right text-red-700" style="font-size: 50px"></span>
+              <span
+                class="mdi mdi-menu-right text-red-700"
+                style="font-size: 50px"
+              ></span>
             </div>
           </NuxtLink>
 
-          <div v-else class="flex justify-between font-bold text-lg py-4 border-b-2 dark cursor-pointer">
+          <div
+            v-else
+            class="flex justify-between font-bold text-lg py-4 border-b-2 dark cursor-pointer"
+          >
             <div>
               <i :class="`${item.icon} mr-3`" style="font-size: 23px"></i>
               <span>{{ item.name }}</span>
-              <TmmTypographyLabelForm :label="item.date" className="mb-3 text-sm" />
+              <TmmTypographyLabelForm
+                :label="item.date"
+                className="mb-3 text-sm"
+              />
             </div>
             <!-- <Dropdown
               v-model="language"

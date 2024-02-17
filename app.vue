@@ -21,44 +21,41 @@ const isLineConnected = ref(false);
 
 const loadDefaultLanguage = async () => {
   // โหลดจาก Localมา
-  const defaultLangguage = localStorage.getItem('defaultlangguage');
+  const defaultLangguage = localStorage.getItem("defaultlangguage");
   // หากไม่มี ให้เก็บลง Local
   if (defaultLangguage == null || defaultLangguage == undefined) {
-    localStorage.setItem("defaultlangguage", 'th-TH');
+    localStorage.setItem("defaultlangguage", "th-TH");
   } else {
     // หากมี ให้ดึงมาใช้เมื่อเว็บเปิด
-    setLocale(defaultLangguage)
+    setLocale(defaultLangguage);
   }
-}
-loadDefaultLanguage()
+};
+loadDefaultLanguage();
 const connectLine = async () => {
   isLineConnected.value = false;
   try {
     await liff.init({ liffId: liftId });
     if (liff.isInClient()) {
-      console.log('liff.isInClient', liff.isInClient)
-      console.log('isInClient == true')
+      console.log("liff.isInClient", liff.isInClient);
+      console.log("isInClient == true");
       await loadProfile();
-
     } else {
       if (liff.isLoggedIn()) {
-        console.log('loginแล้ว isLoggedIn == true')
+        console.log("loginแล้ว isLoggedIn == true");
         loadProfile();
       } else {
-        logIn()
+        logIn();
       }
     }
   } catch (error) {
     isLineConnected.value = true;
-    console.error(error)
+    console.error(error);
   }
 };
 
 const logIn = () => {
   liff.login({
-    redirectUri: window.location.replace(
-      liftUrl
-    ),
+    redirectUri: window.location.replace(liftUrl),
   });
 };
 
@@ -67,49 +64,43 @@ const loadProfile = async () => {
   // liff.closeWindow();
   try {
     await liff.init({ liffId: liftId });
-    console.log('loading ... Profile')
+    console.log("loading ... Profile");
     const profile = await liff.getProfile();
-    console.log('profile', profile)
+    console.log("profile", profile);
     const token = await liff.getIDToken();
-    await decodeTokenDetail(token)
+    await decodeTokenDetail(token);
     localStorage.setItem("profile", JSON.stringify(profile));
     localStorage.setItem("token", token);
 
     // สร้างฟังชั่นCheck-registerทุกครั้งที่initใหม่ หากfalseวิ่งไปRegister(ยังไม่เป็นสมาชิก) true=>วิ่งไปหน้าHome
-
-  }
-  catch (error) {
+  } catch (error) {
     isLineConnected.value = true;
-    console.error(error)
+    console.error(error);
   }
-
-}
+};
 
 const checkRegister = async () => {
-
   try {
     const res = await dataApi.checkRegister();
-    console.log('res register', res.status)
-  }
-  catch (error) {
+    console.log("res register", res.status);
+  } catch (error) {
     // หาก401 จะไปเช็คที่ไฟล์AxiosService เอง
 
-    console.error(error)
+    console.error(error);
   }
-}
+};
 const decodeTokenDetail = async (token) => {
   try {
     const decoded = jwtDecode(token);
     console.log(decoded);
     isLineConnected.value = true;
-  }
-  catch (error) {
+  } catch (error) {
     isLineConnected.value = true;
-    console.error(error)
+    console.error(error);
   }
   // โยนเข้าฟังชั่นไปคำนวนเวลาที่เหลือ expire
   // convertTodiff(decoded.exp)
-}
+};
 
 // const converted = ref(null);
 // const convertTodiff = async (expTimestamp) => {
@@ -168,7 +159,6 @@ const decodeTokenDetail = async (token) => {
 //   stopCounter(); // หยุดการนับเมื่อ component ถูกลบ
 // });
 
-
 onMounted(async () => {
   initFlowbite();
   await connectLine();
@@ -190,7 +180,7 @@ body {
   font-family: "Noto Sans Thai", sans-serif;
 }
 
-.p-datatable.p-datatable-striped .p-datatable-tbody>tr:nth-child(even) {
+.p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even) {
   background: #f3f3f3;
 }
 
