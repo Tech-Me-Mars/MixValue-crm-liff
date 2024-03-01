@@ -43,23 +43,28 @@ const menuData = ref([
     togglelang: false,
   },
   { name: t("ภาษา"), icon: "mdi mdi-web", to: "/", togglelang: true },
-  { name: t("ติดต่อเรา"), icon: "mdi mdi-phone", to: "/", togglelang: false },
+  {
+    name: t("ติดต่อเรา"),
+    icon: "mdi mdi-phone",
+    to: "/content/contact",
+    togglelang: false,
+  },
   {
     name: t("ข้อกำหนดและเงื่อนไข"),
     icon: "mdi mdi-pocket",
-    to: "/",
+    to: "/content/terms-and-conditions",
     togglelang: false,
   },
   {
     name: t("นโยบายความเป็นส่วนตัว"),
     icon: "mdi mdi-shield-account-variant-outline",
-    to: "/",
+    to: "/privacy-personal",
     togglelang: false,
   },
   {
     name: t("การจัดการข้อมูลส่วนบุคคล"),
     icon: "mdi mdi-lock-outline",
-    to: "/",
+    to: "/content/privacy",
     togglelang: false,
   },
 ]);

@@ -1,7 +1,13 @@
 <script setup>
 import * as dataApi from "./api/data.js";
 import { useI18n } from "vue-i18n";
-import { formatDate, customDateFormat, formatCurrency, formatNumber, roundToTwoDecimalPlaces } from '@/helpers/utility';
+import {
+  formatDate,
+  customDateFormat,
+  formatCurrency,
+  formatNumber,
+  roundToTwoDecimalPlaces,
+} from "@/helpers/utility";
 const { t } = useI18n();
 const localPath = useLocalePath();
 
@@ -31,22 +37,20 @@ const couponDiscountProducts = ref([
   //   image: "/image/coupon/coupon-cj-removebg-preview.png",
   //   id: 1,
   // },
-
 ]);
 
-const loadCoupon = async () =>{
-  try{
-    const res = await dataApi.getCoupon()
-    couponDiscountProducts.value = res.data.data.coupon_for_product
-    couponDiscountMoneyList.value = res.data.data.coupon_for_discount_cash
-  }catch (error){
-        console.error(error)
-    }
-}
-onMounted(()=>{
-  loadCoupon()
-})
-
+const loadCoupon = async () => {
+  try {
+    const res = await dataApi.getCoupon();
+    couponDiscountProducts.value = res.data.data.coupon_for_product;
+    couponDiscountMoneyList.value = res.data.data.coupon_for_discount_cash;
+  } catch (error) {
+    console.error(error);
+  }
+};
+onMounted(() => {
+  loadCoupon();
+});
 </script>
 
 <template>
@@ -89,22 +93,22 @@ onMounted(()=>{
             :key="index"
             class="w-full"
           >
-          <NuxtLink :to="localPath(`/coupon/detail/${item.id}`)" >
-            <div class="flex justify-between font-bold gap-2 text-lg py-2">
-              <!-- <div class="w-[8rem]">
-                <img :src="item.image" class="w-full h-full bg-cover" />
-              </div> -->
-              <div class="">
-                <p class="text-green-500 line-clamp-1 text-md">
-                  {{ item.name }}
-                </p>
-                <TmmTypographyLabelForm
-                  :label="`${$t('หมดอายุใน')} ${formatDate(item.end_date)}`"
-                  className="mb-3 text-xs text-green-500 line-clamp-1"
-                />
+            <NuxtLink :to="localPath(`/coupon/detail/${item.id}`)">
+              <div class="flex justify-between font-bold gap-2 text-lg py-2">
+                <div class="w-[8rem]">
+                  <img :src="item.image" class="w-full h-full bg-cover" />
+                </div>
+                <div class="">
+                  <p class="text-green-500 line-clamp-1 text-md">
+                    {{ item.name }}
+                  </p>
+                  <TmmTypographyLabelForm
+                    :label="`${$t('หมดอายุใน')} ${formatDate(item.end_date)}`"
+                    className="mb-3 text-xs text-green-500 line-clamp-1"
+                  />
+                </div>
               </div>
-            </div>
-          </NuxtLink>
+            </NuxtLink>
           </div>
         </div>
       </template>

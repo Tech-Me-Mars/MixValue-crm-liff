@@ -1,19 +1,19 @@
 <script setup>
 import { useI18n } from "vue-i18n";
 import { formatCurrency } from "@/helpers/utility";
+import * as dataApi from "./api/data.js";
 const { t } = useI18n();
 const localPath = useLocalePath();
 
-// ข้อมูล use point
-const resItems = ref([
-  { price: 417, date: "09 ธ.ค 2566, 13:53", visible: false },
-  { price: 417, date: "09 ธ.ค 2566, 13:53", visible: false },
-  { price: 417, date: "09 ธ.ค 2566, 13:53", visible: false },
-  { price: 417, date: "09 ธ.ค 2566, 13:53", visible: false },
-  { price: 417, date: "09 ธ.ค 2566, 13:53", visible: false },
-  { price: 417, date: "09 ธ.ค 2566, 13:53", visible: false },
-  { price: 417, date: "09 ธ.ค 2566, 13:53", visible: false },
-]);
+const resItems = ref();
+const loadReceipt = async () => {
+  const res = await dataApi.getETax();
+  resItems.value = res.data.data;
+};
+
+onMounted(() => {
+  loadReceipt();
+});
 </script>
 
 <template>
@@ -40,14 +40,16 @@ const resItems = ref([
           <div class="border-bottom-1 border-green-600 py-2">
             <div class="flex justify-between font-bold text-lg">
               <div>
-                <p class="">{{ $t("ชื่อสินค้า") }}</p>
+                <p class="">{{ $t("ซื้อสินค้า") }}</p>
                 <TmmTypographyLabelForm
-                  :label="item.date"
+                  :label="item.sale_date"
                   className="font-normal text-sm"
                 />
               </div>
               <div class="text-green-500 text-right">
-                <div>{{ formatCurrency(item.price) }} {{ $t("บาท") }}</div>
+                <div>
+                  {{ formatCurrency(item.total_amount) }} {{ $t("บาท") }}
+                </div>
                 <TmmButtonExpand
                   class="m-0 p-0"
                   @click="item.visible = !item.visible"
@@ -66,13 +68,13 @@ const resItems = ref([
             >
               <div class="w-full">
                 <div class="font-normal text-600 text-sm mb-2">
-                  {{ $t("สาขา: ") + $t("สาขาที่ 00029 อู่ทอง") }}
+                  {{ $t("สาขา: ") + item.branch_name }}
                 </div>
                 <div class="font-normal text-600 text-sm mb-4">
-                  {{ $t("เลขที่บิล: ") + $t("S24020020001-004058") }}
+                  {{ $t("เลขที่บิล: ") + item.sale_number }}
                 </div>
                 <div class="mb-2 text-right w-full">
-                  <NuxtLink to="/receipt/1">
+                  <NuxtLink :to="`/receipt/${item.id}`">
                     <TmmButtonDetail />
                   </NuxtLink>
                 </div>

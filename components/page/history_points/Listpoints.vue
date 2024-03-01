@@ -1,18 +1,22 @@
 <script setup>
 import { useI18n } from "vue-i18n";
+import * as dataApi from "./api/data.js";
+
+import { format } from "date-fns";
+import { th } from "date-fns/locale";
+
 const { t } = useI18n();
 const localPath = useLocalePath();
 
-// ข้อมูล use point
-const resPoints = ref([
-  { point: 5, date: "09 ธ.ค 2566, 13:53" },
-  { point: 5, date: "09 ธ.ค 2566, 13:53" },
-  { point: 5, date: "09 ธ.ค 2566, 13:53" },
-  { point: 5, date: "09 ธ.ค 2566, 13:53" },
-  { point: 5, date: "09 ธ.ค 2566, 13:53" },
-  { point: 5, date: "09 ธ.ค 2566, 13:53" },
-  { point: 5, date: "09 ธ.ค 2566, 13:53" },
-]);
+const resPoints = ref();
+const loadReceipt = async () => {
+  const res = await dataApi.getDataLog();
+  resPoints.value = res.data.data;
+};
+
+onMounted(() => {
+  loadReceipt();
+});
 </script>
 
 <template>
@@ -42,16 +46,20 @@ const resPoints = ref([
             <div>
               <p class="">{{ $t("ได้รับแต้ม") }}</p>
               <TmmTypographyLabelForm
-                :label="item.date"
+                :label="
+                  format(new Date(item.created_at), 'dd MMM yyyy, HH:mm', {
+                    locale: th,
+                  })
+                "
                 className="mb-3 text-sm"
               />
             </div>
-            <span class="text-green-500">{{ item.point }} {{ $t("แต้ม") }}</span>
+            <span class="text-green-500"
+              >{{ item.point }} {{ $t("แต้ม") }}</span
+            >
           </div>
         </div>
       </div>
     </template>
   </DataView>
 </template>
-
-
