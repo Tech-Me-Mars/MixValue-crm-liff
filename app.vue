@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isLineConnected">
+  <div>
     <!-- หาก Connect Line เสร็จแล้วให้ Render Child Component ได้ -->
     <NuxtLayout>
       <NuxtPage />
@@ -19,18 +19,18 @@ const liftUrl = useRuntimeConfig().public.LIFFURL;
 // เช็คว่าทำการConnect และLoginเสร็จยัง
 const isLineConnected = ref(false);
 
-const loadDefaultLanguage = async () => {
-  // โหลดจาก Localมา
-  const defaultLangguage = localStorage.getItem("defaultlangguage");
-  // หากไม่มี ให้เก็บลง Local
-  if (defaultLangguage == null || defaultLangguage == undefined) {
-    localStorage.setItem("defaultlangguage", "th-TH");
-  } else {
-    // หากมี ให้ดึงมาใช้เมื่อเว็บเปิด
-    setLocale(defaultLangguage);
-  }
-};
-loadDefaultLanguage();
+// const loadDefaultLanguage = async () => {
+//   // โหลดจาก Localมา
+//   const defaultLangguage = localStorage.getItem("defaultlangguage");
+//   // หากไม่มี ให้เก็บลง Local
+//   if (defaultLangguage == null || defaultLangguage == undefined) {
+//     localStorage.setItem("defaultlangguage", "th-TH");
+//   } else {
+//     // หากมี ให้ดึงมาใช้เมื่อเว็บเปิด
+//     setLocale(defaultLangguage);
+//   }
+// };
+// loadDefaultLanguage();
 const connectLine = async () => {
   isLineConnected.value = false;
   try {
@@ -161,7 +161,7 @@ const decodeTokenDetail = async (token) => {
 
 onMounted(async () => {
   initFlowbite();
-  await connectLine();
+  // await connectLine();
   checkRegister();
 });
 </script>

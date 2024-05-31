@@ -3,10 +3,10 @@
     class="bg-cover min-h-screen bg-[url('https://www.cupsfrozenyogurt.com/content/uploads/2017/10/cups-bubble-bg-white-purple-subtle.jpg')]"
   >
     <!-- header -->
-    <NuxtLink :to="localPath('/main_menu')">
+    <NuxtLink :to="('/main_menu')">
       <HeaderMenu>
         <div class="flex justify-between items-center w-full">
-          <p class="text-2xl text-white mx-auto">{{ $t("แก้ไขข้อมูลส่วนตัว") }}</p>
+          <p class="text-2xl text-white mx-auto">{{ ("แก้ไขข้อมูลส่วนตัว") }}</p>
           <span class="mdi mdi-chevron-left text-white self-end" style="font-size: 25px"></span>
         </div>
       </HeaderMenu>
@@ -16,13 +16,13 @@
     <section class="p-4">
 
 <!-- เริ่ม ฟอร์ม -->
-<h1 class="my-4 text-lg mb-2"><strong>{{ $t('ข้อมูลส่วนตัว') }}</strong></h1>
+<h1 class="my-4 text-lg mb-2"><strong>{{ ('ข้อมูลส่วนตัว') }}</strong></h1>
 
 <Form @submit="onSubmit">
 <div class="grid grid-cols-1 gap-2 mb-5 card">
     <div class="">
-        <TmmTypographyLabelForm :label="$t('เบอร์โทรศัพท์มือถือ')" />
-        <TmmInputPhon v-model="phone_no" :placeholder="$t('เบอร์โทร')" />
+        <TmmTypographyLabelForm :label="('เบอร์โทรศัพท์มือถือ')" />
+        <TmmInputPhon v-model="phone_no" :placeholder="('เบอร์โทร')" />
         <TmmTypographyTextValidator v-if="errors.phone_no" :errors="errors.phone_no" />
     </div>
     <div class="">
@@ -32,66 +32,66 @@
         <TmmTypographyTextValidator v-if="errors.title_name" :errors="errors.title_name" />
     </div>
     <div class="">
-        <TmmTypographyLabelForm :label="$t('ชื่อ')" />
-        <TmmInput v-model="first_name" :placeholder="$t('ชื่อ')" />
+        <TmmTypographyLabelForm :label="('ชื่อ')" />
+        <TmmInput v-model="first_name" :placeholder="('ชื่อ')" />
         <TmmTypographyTextValidator v-if="errors.first_name" :errors="errors.first_name" />
     </div>
     <div class="">
-        <TmmTypographyLabelForm :label="$t('นามสกุล')" />
-        <TmmInput v-model="last_name" :placeholder="$t('นามสกุล')" />
+        <TmmTypographyLabelForm :label="('นามสกุล')" />
+        <TmmInput v-model="last_name" :placeholder="('นามสกุล')" />
         <TmmTypographyTextValidator v-if="errors.last_name" :errors="errors.last_name" />
     </div>
 
     <div class="">
-        <TmmTypographyLabelForm :label="$t('เลขบัตรประชาชน')" />
-        <TmmInput v-model="cid" :placeholder="$t('เลขบัตรประชาชน')" />
+        <TmmTypographyLabelForm :label="('เลขบัตรประชาชน')" />
+        <TmmInput v-model="cid" :placeholder="('เลขบัตรประชาชน')" />
         <TmmTypographyTextValidator v-if="errors.cid" :errors="errors.cid" />
     </div>
     <div class="">
-        <TmmTypographyLabelForm :label="$t('ชื่อเล่น')" />
-        <TmmInput v-model="nick_name" :placeholder="$t('ชื่อเล่น')" />
+        <TmmTypographyLabelForm :label="('ชื่อเล่น')" />
+        <TmmInput v-model="nick_name" :placeholder="('ชื่อเล่น')" />
         <TmmTypographyTextValidator v-if="errors.nick_name" :errors="errors.nick_name" />
     </div>
 
     <div class="">
-        <TmmTypographyLabelForm :label="$t('จังหวัด')" />
+        <TmmTypographyLabelForm :label="('จังหวัด')" />
         <TmmInputDropDown v-model="province_id" className="w-full" :options="resProvincesOption"
-            optionLabel="name_th" optionValue="id" :placeholder="$t('เลือกจังหวัด')"
+            optionLabel="name_th" optionValue="id" :placeholder="('เลือกจังหวัด')"
             @change="handleProvinceChange" />
         <TmmTypographyTextValidator v-if="errors.province_id" :errors="errors.province_id" />
     </div>
 
     <div class="">
-        <TmmTypographyLabelForm :label="$t('อำเภอ')" />
+        <TmmTypographyLabelForm :label="('อำเภอ')" />
         <TmmInputDropDown v-model="amphure_id" className="w-full" :options="resAmphuresOption"
-            optionLabel="name_th" optionValue="id" :placeholder="$t('เลือกอำเภอ')"
+            optionLabel="name_th" optionValue="id" :placeholder="('เลือกอำเภอ')"
             @change="handleAmphureChange" />
         <TmmTypographyTextValidator v-if="errors.amphure_id" :errors="errors.amphure_id" />
     </div>
 
     <div class="">
-        <TmmTypographyLabelForm :label="$t('ตำบล')" />
+        <TmmTypographyLabelForm :label="('ตำบล')" />
         <TmmInputDropDown v-model="district_id" className="w-full" :options="resDistrictsOption"
-            optionLabel="name_th" optionValue="id" :placeholder="$t('เลือกตำบล')"
+            optionLabel="name_th" optionValue="id" :placeholder="('เลือกตำบล')"
             @change="handleDistrictChange" />
         <TmmTypographyTextValidator v-if="errors.district_id" :errors="errors.district_id" />
     </div>
 
     <div class="">
-        <TmmTypographyLabelForm :label="$t('ไปรษณีย์')" />
-        <TmmInput v-model="zipcode" :disabled="!district_id" :placeholder="$t('ไปรษณีย์')" />
+        <TmmTypographyLabelForm :label="('ไปรษณีย์')" />
+        <TmmInput v-model="zipcode" :disabled="!district_id" :placeholder="('ไปรษณีย์')" />
         <TmmTypographyTextValidator v-if="errors.zipcode" :errors="errors.zipcode" />
     </div>
 
     <div class="">
-        <TmmTypographyLabelForm :label="$t('ภาษี')" />
-        <TmmInput v-model="tax" :disabled="!district_id" :placeholder="$t('ภาษี')" />
+        <TmmTypographyLabelForm :label="('ภาษี')" />
+        <TmmInput v-model="tax" :disabled="!district_id" :placeholder="('ภาษี')" />
         <TmmTypographyTextValidator v-if="errors.tax" :errors="errors.tax" />
     </div>
 
     <div class="">
-        <TmmTypographyLabelForm :label="$t('อีเมลล์')" />
-        <TmmInputEmail v-model="email" :placeholder="$t('อีเมลล์')" />
+        <TmmTypographyLabelForm :label="('อีเมลล์')" />
+        <TmmInputEmail v-model="email" :placeholder="('อีเมลล์')" />
         <TmmTypographyTextValidator v-if="errors.email" :errors="errors.email" />
     </div>
 </div>
@@ -100,19 +100,19 @@
 <hr class="my-3">
 <!-- คำแนะนำ -->
 <p class="font-light text-sm mb-5">
-    {{ $t('หากต้องการแก้ไขข้อมูลส่วนตัว เช่น ชื่อ-นามสกุล วันเดือนปีเกิดหรือที่อยู่ตามทะเบียนบ้านกกรุณานำบัตรประชาชนไปติดต่อแก้ไขที่ร้านมิกซ์แวลูส์ได้ทุกสาขา') }}
+    {{ ('หากต้องการแก้ไขข้อมูลส่วนตัว เช่น ชื่อ-นามสกุล วันเดือนปีเกิดหรือที่อยู่ตามทะเบียนบ้านกกรุณานำบัตรประชาชนไปติดต่อแก้ไขที่ร้านมิกซ์แวลูส์ได้ทุกสาขา') }}
 </p>
 <!-- จบคำแนะนำ -->
 <!-- ปุ่มบันทึก -->
 <div class="flex flex-col justify-center">
-    <TmmButtonSave :label="$t('บันทึก')" type="submit" class="w-full mb-5" severity="success" />
+    <TmmButtonSave :label="('บันทึก')" type="submit" class="w-full mb-5" severity="success" />
 </div>
 <!-- จบปุ่มบันทึก -->
 
 <!-- ปุ่มยกเลิก -->
 <div class="flex justify-center">
     <span class="underline text-center text-green-600 font-bold  self-center cursor-pointer">
-        {{ $t('ยกเลิกการแก้ไข') }}
+        {{ ('ยกเลิกการแก้ไข') }}
     </span>
 </div>
  <!-- จบปุ่มยกเลิก -->
@@ -126,9 +126,9 @@
 </template>
 
 <script setup>
-import { useI18n } from "vue-i18n";
-const { t } = useI18n();
-const localPath = useLocalePath();
+
+
+
 
 import { format } from "date-fns";
 import * as dataApi from "./api/data.js";

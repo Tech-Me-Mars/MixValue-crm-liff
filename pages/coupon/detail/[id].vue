@@ -1,9 +1,9 @@
 <template>
   <div class="bg-cover min-h-screen bg-white">
-    <NuxtLink :to="localPath('/coupon')">
+    <NuxtLink :to="('/coupon')">
       <HeaderMenu class="!bg-lime-700">
         <div class="flex justify-between items-center w-full">
-          <p class="text-2xl text-white mx-auto">{{ $t("รายละเอียดคูปอง") }}</p>
+          <p class="text-2xl text-white mx-auto">{{ ("รายละเอียดคูปอง") }}</p>
           <span
             class="mdi mdi-chevron-left text-white self-end"
             style="font-size: 25px"
@@ -26,7 +26,7 @@
         <h1 class="text-green-600 font-bold text-3xl text-center mb-2">
           {{ couponName }}
         </h1>
-        <p class="text-center">{{ $t("หมดอายุใน") }} {{ couponExpire }}</p>
+        <p class="text-center">{{ ("หมดอายุใน") }} {{ couponExpire }}</p>
       </div>
       <!-- <PageCouponDetailBarcodescan /> -->
       <div class="mb-5" v-if="showBarcode == false">
@@ -34,44 +34,45 @@
           @click="toggleShowBarcode()"
           severity="success"
           className="w-full py-3 bg-green-800 mb-5"
-          :label="$t('กดที่แคชเชียร์เพื่อแสดงบาร์โค้ดส่วนลด')"
+          :label="('กดที่แคชเชียร์เพื่อแสดงบาร์โค้ดส่วนลด')"
           raised
         />
         <p class="text-red-700 font-semibold text-center">
-          {{ $t("บาร์โค้ดจะมีอายุ 1 นาที") }}
-          {{ $t("เมื่อหมดเวลาแล้วแต่ยังไม่ได้ถูกใช้สามารถกดขอใหม่ได้") }}
+          {{ ("บาร์โค้ดจะมีอายุ 1 นาที") }}
+          {{ ("เมื่อหมดเวลาแล้วแต่ยังไม่ได้ถูกใช้สามารถกดขอใหม่ได้") }}
         </p>
       </div>
       <div class="mb-5" v-else>
-        <p class="text-center">{{ $t("สแกนเพื่อใช้สิทธิ์") }}</p>
+        <p class="text-center">{{ ("สแกนเพื่อใช้สิทธิ์") }}</p>
         <img src="/barcode.png" class="my-2" />
         <p class="text-red-700 font-semibold text-center">
-          {{ $t("กรุณาสแกนภายใน") }} {{ couterTime }} {{ $t("นาที") }}
+          {{ ("กรุณาสแกนภายใน") }} {{ couterTime }} {{ ("นาที") }}
         </p>
       </div>
       <ul class="list-disc text-xs">
-        <li class="mb-1">{{ t("ข้อกำหนดและเงื่อนไข") }}:</li>
+        <li class="mb-1">{{ ("ข้อกำหนดและเงื่อนไข") }}:</li>
         <li class="mb-1">
-          {{ $t("คูปองสามารถใช้ได้ที่ร้าน") }} {{ $t("มิกซ์แวลูส์") }}
-          {{ $t("ทุกสาขา") }}
+          {{ ("คูปองสามารถใช้ได้ที่ร้าน") }} {{ ("มิกซ์แวลูส์") }}
+          {{ ("ทุกสาขา") }}
         </li>
         <li class="mb-1">
-          {{ $t("คูปองสามารถถใช้ได้ภายในวันที่") }} {{ dateStart }}-{{
+          {{ ("คูปองสามารถถใช้ได้ภายในวันที่") }} {{ dateStart }}-{{
             dateEnd
           }}
         </li>
-        <li class="mb-1">{{ $t("1 สามาชิก 1 สิทธิ์ เท่านั้น") }}</li>
-        <li class="mb-1">{{ $t("เงื่อนไขเป็นไปตามบริษัทฯกำหนด") }}</li>
-        <li class="mb-1">{{ $t('บริษัท มิกซ์แวลูส์ คอร์ปอเรชั่น จำกัด ขอสงวนสิทธิ์ในการเปลี่ยนแปลงเงื่อนไข โดยไม่ต้องแจ้งให้ทราบล่วงหน้า') }}</li>
+        <li class="mb-1">{{ ("1 สามาชิก 1 สิทธิ์ เท่านั้น") }}</li>
+        <li class="mb-1">{{ ("เงื่อนไขเป็นไปตามบริษัทฯกำหนด") }}</li>
+        <li class="mb-1">{{ ('บริษัท มิกซ์แวลูส์ คอร์ปอเรชั่น จำกัด ขอสงวนสิทธิ์ในการเปลี่ยนแปลงเงื่อนไข โดยไม่ต้องแจ้งให้ทราบล่วงหน้า') }}</li>
       </ul>
     </section>
   </div>
 </template>
 
 <script setup>
-import { useI18n } from "vue-i18n";
-const { t } = useI18n();
-const localPath = useLocalePath();
+import * as dataApi from "../api/data.js";
+
+
+
 
 const couponName = ref("ส่วนลดเครื่องดื่มบาวคาเฟ่มูลค่า 20บ.");
 const couponExpire = ref("29 ก.พ 2567");

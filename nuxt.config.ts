@@ -3,35 +3,6 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
   ssr:false,
-  i18n: {
-    /* module options */
-    lazy: true,
-    langDir: "locales",
-    strategy: "prefix_except_default",
-    locales: [
-      {
-        code: "th-TH",
-        iso: "th-TH",
-        name: "ไทย",
-        file: "th-TH.json",
-        flag: '/image/flag/flag-thailand.png',
-        flagIcon:"fi-th"
-      },
-      {
-        code: "en-US",
-        iso: "en-US",
-        name: "English(US)",
-        file: "en-US.json",
-        flag: '/image/flag/flag-us.png',
-        flagIcon:"fi-gb"
-      },
-
-    ],
-    defaultLocale: "th-TH",
-    // vueI18n: {
-    //   fallbackLocale: "en-US",
-    // },
-  },
   vue: {
     defineModel: true,
     propsDestructure: true

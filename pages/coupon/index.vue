@@ -1,10 +1,10 @@
 <template>
   <div class="bg-cover min-h-screen bg-white">
     <!-- Header -->
-    <NuxtLink :to="localPath('/main_menu')">
+    <NuxtLink :to="('/main_menu')">
       <HeaderMenu class="mb-5 !bg-lime-700">
         <div class="flex justify-between items-center w-full">
-          <p class="text-2xl text-white mx-auto">{{ $t("คูปอง") }}</p>
+          <p class="text-2xl text-white mx-auto">{{ ("คูปอง") }}</p>
           <span class="mdi mdi-chevron-left text-white self-end" style="font-size: 25px"></span>
         </div>
       </HeaderMenu>
@@ -28,13 +28,13 @@
         <template #empty>
           <div class="flex flex-col justify-center items-center">
             <p class="mdi mdi-receipt-text-remove-outline mb-1 text-green-600"></p>
-            <p>{{ $t("ไม่พบคูปอง") }}</p>
+            <p>{{ ("ไม่พบคูปอง") }}</p>
           </div>
         </template>
         <template #list="slotProps">
           <div class="flex flex-wrap">
             <div v-for="(item, index) in slotProps.items" :key="index" class="w-full">
-              <NuxtLink :to="localPath(`/coupon/detail/${item.id}`)">
+              <NuxtLink :to="(`/coupon/detail/${item.id}`)">
                 <div class="flex justify-between font-bold gap-2 text-lg py-2">
                   <div class="w-[8rem]">
                     <img :src="item.image" class="w-full h-full bg-cover" />
@@ -43,7 +43,7 @@
                     <p class="text-green-500 line-clamp-1 text-md">
                       {{ item.name }}
                     </p>
-                    <TmmTypographyLabelForm :label="`${$t('หมดอายุใน')} ${formatDate(item.end_date)}`"
+                    <TmmTypographyLabelForm :label="`${('หมดอายุใน')} ${formatDate(item.end_date)}`"
                       className="mb-3 text-xs text-green-500 line-clamp-1" />
                   </div>
                 </div>
@@ -63,7 +63,7 @@
         <template #empty>
           <div class="flex flex-col justify-center items-center">
             <p class="mdi mdi-receipt-text-remove-outline mb-1 text-green-600"></p>
-            <p>{{ $t("ไม่พบคูปอง") }}</p>
+            <p>{{ ("ไม่พบคูปอง") }}</p>
           </div>
         </template>
         <template #list="slotProps">
@@ -77,7 +77,7 @@
                   <p class="text-green-500 line-clamp-1 text-md">
                     {{ item.name }}
                   </p>
-                  <TmmTypographyLabelForm :label="`${$t('หมดอายุใน')} ${formatDate(item.end_date)}`"
+                  <TmmTypographyLabelForm :label="`${('หมดอายุใน')} ${formatDate(item.end_date)}`"
                     className="mb-3 text-xs text-green-500 line-clamp-1" />
                 </div>
               </div>
@@ -92,9 +92,10 @@
 </template>
 
 <script setup>
-import { useI18n } from "vue-i18n";
-const { t } = useI18n();
-const localPath = useLocalePath();
+import * as dataApi from "./api/data.js";
+
+
+
 
 import {
   formatDate,
@@ -116,8 +117,8 @@ const activeBtn = (id) => {
 };
 // ข้อมูลปุ่มคูปอง
 const buttonCategoryCoupon = ref([
-  { id: 1, label: t("คูปองส่วนลดสินค้า"), active: true },
-  { id: 2, label: t("คูปองส่วนลดเงินสด"), active: false },
+  { id: 1, label: "คูปองส่วนลดสินค้า", active: true },
+  { id: 2, label: "คูปองส่วนลดเงินสด", active: false },
 ]);
 
 // ข้อมูลคูปองส่วนลดเงินสด

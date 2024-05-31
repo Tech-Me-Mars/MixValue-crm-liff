@@ -2,11 +2,11 @@
   <div
     class="bg-cover min-h-screen bg-[url('https://www.cupsfrozenyogurt.com/content/uploads/2017/10/cups-bubble-bg-white-purple-subtle.jpg')]">
     <!-- header -->
-    <NuxtLink :to="localPath('/main_menu')">
+    <NuxtLink :to="('/main_menu')">
       <HeaderMenu>
         <div class="flex justify-between items-center w-full">
           <p class="text-2xl text-white mx-auto">
-            {{ $t("รายละเอียดใบเสร็จ") }}
+            {{ ("รายละเอียดใบเสร็จ") }}
           </p>
           <span class="mdi mdi-chevron-left text-white self-end" style="font-size: 25px"></span>
         </div>
@@ -21,7 +21,7 @@
         {{ saleDate }}
       </div>
       <div class="text-gray-500 text-sm mb-1">
-        {{ $t("เลขที่บิล") }} : {{ resItems?.sale_number }}
+        {{ ("เลขที่บิล") }} : {{ resItems?.sale_number }}
       </div>
 
       <div class="text-green-500 font-bold text-xl mb-2 mt-5">รายการสินค้า</div>
@@ -56,7 +56,7 @@
           <div class="flex align-middle border-gray-300 border-2 bg-gray-200 p-3 rounded-md">
             <i class="mdi mdi-alert-circle-outline text-2xl mr-2 text-gray-500"></i>
             <div class="mt-1 p-0">ไม่สามารถขอใบกำกับภาษีได้</div>
-            <TmmButtonCondition class="ml-auto border-gray-300" :label="$t('ดูเงื่อนไข')" />
+            <TmmButtonCondition class="ml-auto border-gray-300" :label="('ดูเงื่อนไข')" />
           </div>
         </div>
       </div>
@@ -65,9 +65,9 @@
 </template>
 
 <script setup>
-import { useI18n } from "vue-i18n";
-const { t } = useI18n();
-const localPath = useLocalePath();
+
+
+
 
 import { formatCurrency } from "@/helpers/utility";
 import * as dataApi from "./api/data.js";
