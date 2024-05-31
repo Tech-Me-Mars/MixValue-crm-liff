@@ -1,8 +1,6 @@
 <template>
     <div class="bg-[url('')] bg-cover bg-white min-h-screen pt-2">
-        <div class="flex justify-end">
-            <Changelang class="mr-2" />
-        </div>
+
         <div class="px-10">
             <div class="flex items-center justify-center mb-3">
                 <img src="/logo/LOGO_MIX_STATION.png" class="w-[9rem]" />
